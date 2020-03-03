@@ -630,15 +630,13 @@ class Dmm_Start
                     <label id="dmm_permission" style="display:none"><input type="checkbox" name="dmm_permission"> <?php echo sprintf(__('I hereby authorize %s to collect the amount shown above from my account periodically.', 'doneren-met-mollie'), get_option('dmm_name_foundation'));?></label>
 
                     <?php if (isset($dmm_fields['GDPR checkbox']['active']) && $dmm_fields['GDPR checkbox']['active']) { ?>
-                        <p>
-                            <label for="dmm_gdpr"><input type="checkbox" id="dmm_gdpr" name="dmm_gdpr">
-                                <?php echo __('I hereby agree to the', 'doneren-met-mollie');?>
+                        <div class="form-row">
+                            <label for="dmm_gdpr"><input type="checkbox" id="dmm_gdpr" name="dmm_gdpr"><?php echo __('I hereby agree to the', 'doneren-met-mollie');?>
                                 <a target="_blank" href="<?php echo esc_attr(get_option('dmm_gdpr_link', '#'));?>">
                                     <?php echo __('Privacy Policy', 'doneren-met-mollie');?>
                                 </a>
                             </label>
-
-                        </p>
+                        </div>
                     <?php } ?>
 
                     <?php
