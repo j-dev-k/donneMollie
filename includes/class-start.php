@@ -587,20 +587,23 @@ class Dmm_Start
                     <?php } ?>
 
                     <div class="form-row">
-                      <div class="form-group col-md-2">
-                        <?php echo esc_html_e('Amount', 'doneren-met-mollie') . ' ' . (get_option('dmm_currency_switch') != '1' ? dmm_get_currency_symbol(get_option('dmm_currency')) : '') . '<span style="color:red;">*</span><br>'; ?>
+                      <div class="form-group col-md-7">
+                          <label for="dmm_dd">
+                              <?php echo esc_html_e('Spende', 'doneren-met-mollie'); ?>
+                          </label>
+                          <select id="dmm_dd" style="width: 100%" onchange="if(this.value!='--'){document.getElementById('dmm_amount').value=this.value;document.getElementById('dmm_amount').style.display = 'none';}else{document.getElementById('dmm_amount').style.display = 'block';}">';
+                              <option value="--"><?php echo esc_html__('Enter your own amount', 'doneren-met-mollie'); ?></option>
+                              <?php
+                                foreach (explode('/', get_option('dmm_amount')) as $amount) {
+                                    echo '<option value="' . trim(esc_attr($amount)) . '"' . (get_option('dmm_default_amount') == trim($amount) ? ' selected' : '') . '>' . dmm_get_currency_symbol(get_option('dmm_currency')) . ' ' . esc_html($amount) . '</option>';
+                                }
+                              ?>
+                          </select>
                       </div>
                       <div class="form-group col-md-5">
-                        <select id="dmm_dd" style="width: 100%" onchange="if(this.value!='--'){document.getElementById('dmm_amount').value=this.value;document.getElementById('dmm_amount').style.display = 'none';}else{document.getElementById('dmm_amount').style.display = 'block';}">';
-                          <option value="--"><?php echo esc_html__('Enter your own amount', 'doneren-met-mollie'); ?></option>
-                          <?php
-                            foreach (explode('/', get_option('dmm_amount')) as $amount) {
-                                echo '<option value="' . trim(esc_attr($amount)) . '"' . (get_option('dmm_default_amount') == trim($amount) ? ' selected' : '') . '>' . dmm_get_currency_symbol(get_option('dmm_currency')) . ' ' . esc_html($amount) . '</option>';
-                            }
-                          ?>
-                        </select>
-                      </div>
-                      <div class="form-group col-md-5">
+                          <label for="dmm_amount">
+                              <?php echo esc_html_e('Amount', 'doneren-met-mollie') . ' ' . (get_option('dmm_currency_switch') != '1' ? dmm_get_currency_symbol(get_option('dmm_currency')) : '') . '<span style="color:red;">*</span><br>'; ?>
+                          </label>
                         <input type="text" id="dmm_amount" name="dmm_amount" class="<?php echo esc_attr(get_option('dmm_fields_cls'));?>" value="<?php echo (isset($_POST["dmm_amount"]) ? esc_attr($_POST["dmm_amount"]) : get_option('dmm_default_amount')); ?>">
                         <input type="hidden" name="dmm_currency" id="dmm_currency" value="<?php echo get_option('dmm_currency', 'EUR'); ?>">
                       </div>
