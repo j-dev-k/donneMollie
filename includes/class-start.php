@@ -612,42 +612,45 @@ class Dmm_Start
                     <?php echo $this->dmm_payment_methods($mollie);?>
 
                     <br><br>
-                    <script>
-                        window.onload=function() {
-                            var dmm_dd = document.getElementById('dmm_dd');
-                            if(dmm_dd !== null) {
-                                if (dmm_dd.value !== '--') {
-                                    document.getElementById('dmm_amount').value=document.getElementById('dmm_dd').value;
-                                    document.getElementById('dmm_amount').style.display = 'none';
+                    <div class="form-row">
+                        <div class="form-group col-md-12">                        
+                            <script>
+                                window.onload=function() {
+                                    var dmm_dd = document.getElementById('dmm_dd');
+                                    if(dmm_dd !== null) {
+                                        if (dmm_dd.value !== '--') {
+                                            document.getElementById('dmm_amount').value=document.getElementById('dmm_dd').value;
+                                            document.getElementById('dmm_amount').style.display = 'none';
+                                        }
+                                    }
+                                    <?php if (get_option('dmm_recurring')) { ?>
+                                    if(document.getElementById('dmm_interval').value !== 'one'){
+                                        document.getElementById('dmm_permission').style.display = 'block';
+                                    }
+                                    dmm_recurring_methods(document.getElementById('dmm_interval').value);
+                                    <?php } ?>
+                                    dmm_multicurrency_methods(document.getElementById('dmm_currency').value);
                                 }
-                            }
-                            <?php if (get_option('dmm_recurring')) { ?>
-                            if(document.getElementById('dmm_interval').value !== 'one'){
-                                document.getElementById('dmm_permission').style.display = 'block';
-                            }
-                            dmm_recurring_methods(document.getElementById('dmm_interval').value);
+                            </script>
+                            <label id="dmm_permission" style="display:none"><input type="checkbox" name="dmm_permission"> <?php echo sprintf(__('I hereby authorize %s to collect the amount shown above from my account periodically.', 'doneren-met-mollie'), get_option('dmm_name_foundation'));?></label>
+        
+                            <?php if (isset($dmm_fields['GDPR checkbox']['active']) && $dmm_fields['GDPR checkbox']['active']) { ?>
+                                <div class="form-row">
+                                    <label for="dmm_gdpr"><input type="checkbox" id="dmm_gdpr" name="dmm_gdpr"><?php echo __('I hereby agree to the', 'doneren-met-mollie');?>
+                                        <a target="_blank" href="<?php echo esc_attr(get_option('dmm_gdpr_link', '#'));?>">
+                                            <?php echo __('Privacy Policy', 'doneren-met-mollie');?>
+                                        </a>
+                                    </label>
+                                </div>
                             <?php } ?>
-                            dmm_multicurrency_methods(document.getElementById('dmm_currency').value);
-                        }
-                    </script>
-                    <label id="dmm_permission" style="display:none"><input type="checkbox" name="dmm_permission"> <?php echo sprintf(__('I hereby authorize %s to collect the amount shown above from my account periodically.', 'doneren-met-mollie'), get_option('dmm_name_foundation'));?></label>
-
-                    <?php if (isset($dmm_fields['GDPR checkbox']['active']) && $dmm_fields['GDPR checkbox']['active']) { ?>
-                        <div class="form-row">
-                            <label for="dmm_gdpr"><input type="checkbox" id="dmm_gdpr" name="dmm_gdpr"><?php echo __('I hereby agree to the', 'doneren-met-mollie');?>
-                                <a target="_blank" href="<?php echo esc_attr(get_option('dmm_gdpr_link', '#'));?>">
-                                    <?php echo __('Privacy Policy', 'doneren-met-mollie');?>
-                                </a>
-                            </label>
+        
+                            <?php
+                            // Hook to add custom form fields at the bottom of the form
+                            do_action('dmm_donate_form_bottom');?>
+        
+                            <input type="submit" name="dmm_submitted" class="<?php echo esc_attr(get_option('dmm_button_cls'));?>" value="<?php echo esc_attr(__('Donate', 'doneren-met-mollie'));?>">
                         </div>
-                    <?php } ?>
-
-                    <?php
-                    // Hook to add custom form fields at the bottom of the form
-                    do_action('dmm_donate_form_bottom');?>
-
-                    <input type="submit" name="dmm_submitted" class="<?php echo esc_attr(get_option('dmm_button_cls'));?>" value="<?php echo esc_attr(__('Donate', 'doneren-met-mollie'));?>">
-
+                    </div>
                 </form>
                 <?php
 
