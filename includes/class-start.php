@@ -532,7 +532,7 @@ class Dmm_Start
                         <input type="hidden" name="dmm_recurring_interval" value="one">
                     <?php } ?>
 
-                    <div class="form-row">
+                    <div class="row">
                     <?php if (isset($dmm_fields['Name']['active']) && $dmm_fields['Name']['active']) { ?>
                         <div class="form-group col-md-6">
                             <label for="dmm_name"><?php echo esc_html_e('Name', 'doneren-met-mollie') . (isset($dmm_fields['Name']['required']) && $dmm_fields['Name']['required'] ? '<span style="color:red;">*</span>' : '');?></label>
@@ -548,7 +548,7 @@ class Dmm_Start
                     </div>
 
                     <?php if (isset($dmm_fields['Address']['active']) && $dmm_fields['Address']['active']) { ?>
-                        <div class="form-row">
+                        <div class="row">
                           <div class="form-group col-md-5">
                             <label for="dmm_address"><?php echo esc_html_e('Straße', 'doneren-met-mollie') . (isset($dmm_fields['Address']['required']) && $dmm_fields['Address']['required'] ? '<span style="color:red;">*</span>' : '');?></label>
                             <input type="text" id="dmm_address" name="dmm_address" class="<?php echo esc_attr(get_option('dmm_fields_cls'));?>" value="<?php echo (isset($_POST["dmm_address"]) ? esc_attr($_POST["dmm_address"]) : '');?>" placeholder="<?php echo esc_html_e('Straße', 'doneren-met-mollie');?>">
@@ -563,13 +563,13 @@ class Dmm_Start
                           </div>
                           <div class="form-group col-md-12">
                             <label for="dmm_country"><?php echo esc_html_e('Land', 'doneren-met-mollie') . (isset($dmm_fields['Address']['required']) && $dmm_fields['Address']['required'] ? '<span style="color:red;">*</span>' : '');?></label>
-                            <input type="text" name="dmm_country" class="<?php echo esc_attr(get_option('dmm_fields_cls'));?>" value="<?php echo (isset($_POST["dmm_country"]) ? esc_attr($_POST["dmm_country"]) : '');?>" placeholder="<?php echo esc_html_e('Land', 'doneren-met-mollie');?>">
+                            <input type="text" id="dmm_country" name="dmm_country" class="<?php echo esc_attr(get_option('dmm_fields_cls'));?>" value="<?php echo (isset($_POST["dmm_country"]) ? esc_attr($_POST["dmm_country"]) : '');?>" placeholder="<?php echo esc_html_e('Land', 'doneren-met-mollie');?>">
                           </div>
                         </div>
                     <?php } ?>
 
                     <?php if (isset($dmm_fields['Project']['active']) && $dmm_fields['Project']['active']) { ?>
-                        <div class="form-row">
+                        <div class="row">
                           <div class="form-group col-md-12">
                             <label for="dmm_project"><?php echo esc_html_e('Project', 'doneren-met-mollie') . (isset($dmm_fields['Project']['required']) && $dmm_fields['Project']['required'] ? '<span style="color:red;">*</span>' : '');?></label>
                             <?php echo $this->dmm_projects(isset($_POST["dmm_project"]) ? esc_attr($_POST["dmm_project"]) : '');?>
@@ -578,7 +578,7 @@ class Dmm_Start
                     <?php } ?>
 
                     <?php if (isset($dmm_fields['Message']['active']) && $dmm_fields['Message']['active']) { ?>
-                        <div class="form-row">
+                        <div class="row">
                           <div class="form-group col-md-12">
                             <label for="dmm_message"><?php echo esc_html_e('Message', 'doneren-met-mollie') . (isset($dmm_fields['Message']['required']) && $dmm_fields['Message']['required'] ? '<span style="color:red;">*</span>' : '');?></label>
                             <textarea id="dmm_message" name="dmm_message" class="<?php echo esc_attr(get_option('dmm_fields_cls'));?>" rows="5" style="width: 100%"><?php echo (isset($_POST["dmm_message"]) ? esc_attr($_POST["dmm_message"]) : '');?></textarea>
@@ -586,7 +586,7 @@ class Dmm_Start
                         </div>
                     <?php } ?>
 
-                    <div class="form-row">
+                    <div class="row">
                       <div class="form-group col-md-7">
                           <label for="dmm_dd">
                               <?php echo esc_html_e('Spende', 'doneren-met-mollie'); ?>
@@ -609,7 +609,7 @@ class Dmm_Start
 
                     <?php echo $this->dmm_payment_methods($mollie); ?>
 
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-12">                        
                             <script>
                                 window.onload=function() {
@@ -633,7 +633,7 @@ class Dmm_Start
                             <label id="dmm_permission" style="display:none"><input type="checkbox" name="dmm_permission"> <?php echo sprintf(__('I hereby authorize %s to collect the amount shown above from my account periodically.', 'doneren-met-mollie'), get_option('dmm_name_foundation'));?></label>
         
                             <?php if (isset($dmm_fields['GDPR checkbox']['active']) && $dmm_fields['GDPR checkbox']['active']) { ?>
-                                <div class="form-row">
+                                <div class="row">
                                     <label for="dmm_gdpr"><input type="checkbox" id="dmm_gdpr" name="dmm_gdpr"><?php echo __('I hereby agree to the', 'doneren-met-mollie');?>
                                         <a target="_blank" href="<?php echo esc_attr(get_option('dmm_gdpr_link', '#')); ?>">
                                             <?php echo __('Privacy Policy', 'doneren-met-mollie');?>
@@ -674,7 +674,7 @@ class Dmm_Start
      */
     private function dmm_payment_methods($mollie) {
         $option = get_option('dmm_methods_display', 'list');
-        $methods = '<div class="form-row">';
+        $methods = '<div class="row">';
 
         if (get_option('dmm_recurring'))
         {
