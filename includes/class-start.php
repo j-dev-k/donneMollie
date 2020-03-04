@@ -738,9 +738,7 @@ class Dmm_Start
         {
             foreach ($mollie->all('methods') as $method)
             {
-                $methods .= '<div class="form-group col-md-3">';
                 $methods .=  '<label class="' . $this->dmm_pm_class($method->id) . '"><input type="radio" name="dmm_method" value="' . $method->id . '" ' . ($first ? 'checked' : '') . '> <img style="vertical-align:middle;display:inline-block" src="' . esc_url($method->image->size1x) . '"> ' . esc_html__($method->description, 'doneren-met-mollie') . '<br></label>';
-                $methods .= '</div>';
                 $first = false;
             }
         }
@@ -756,9 +754,11 @@ class Dmm_Start
         {
             foreach ($mollie->all('methods') as $method)
             {
+                $methods .= '<div class="form-group col-md-3">';
                 $methods .= '<label for class="' . $this->dmm_pm_class($method->id) . '">';
                 $methods .= '<input type="radio" name="dmm_method" value="' . $method->id . '" ' . ($first ? 'checked' : '') . '>';
                 $methods .=  ' <img style="vertical-align:middle;display:inline-block" src="' . esc_url($method->image->size1x) . '"></label> ';
+                $methods .= '</div>';
                 $first = false;
             }
         }
