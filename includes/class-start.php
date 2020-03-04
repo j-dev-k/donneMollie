@@ -757,11 +757,12 @@ class Dmm_Start
         {
             foreach ($mollie->all('methods') as $method)
             {
-                $methods .= '<div class="form-group col-md-3">';
-                $methods .= '<label for class="' . $this->dmm_pm_class($method->id) . '">';
-                $methods .= '<input type="radio" name="dmm_method" value="' . $method->id . '" ' . ($first ? 'checked' : '') . '>';
-                $methods .=  ' <img style="vertical-align:middle;display:inline-block" src="' . esc_url($method->image->size1x) . '"></label> ';
-                $methods .= '</div>';
+                $methods .= '<div class="form-group col-md-3">
+                                <label class="' . $this->dmm_pm_class($method->id) . '">
+                                    <img style="vertical-align:middle;display:inline-block" src="' . esc_url($method->image->size2x) . '">
+                                    <input type="radio" name="dmm_method" value="' . $method->id . '" ' . ($first ? 'checked' : '') . '>
+                                </label>
+                            </div>';
                 $first = false;
             }
         }
