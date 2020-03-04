@@ -670,8 +670,7 @@ class Dmm_Start
      */
     private function dmm_payment_methods($mollie) {
         $option = get_option('dmm_methods_display', 'list');
-        $methods = '<div class="form-row">
-                        <div class="form-group col-md-12">';
+        $methods = '<div class="form-row">';
 
         if (get_option('dmm_recurring'))
         {
@@ -739,7 +738,9 @@ class Dmm_Start
         {
             foreach ($mollie->all('methods') as $method)
             {
+                $methods .= '<div class="form-group col-md-3">';
                 $methods .=  '<label class="' . $this->dmm_pm_class($method->id) . '"><input type="radio" name="dmm_method" value="' . $method->id . '" ' . ($first ? 'checked' : '') . '> <img style="vertical-align:middle;display:inline-block" src="' . esc_url($method->image->size1x) . '"> ' . esc_html__($method->description, 'doneren-met-mollie') . '<br></label>';
+                $methods .= '</div>';
                 $first = false;
             }
         }
@@ -772,7 +773,7 @@ class Dmm_Start
             $methods .= '</select>';
         }
 
-        $methods .= '</div></div>';
+        $methods .= '</div>';
 
         return $methods;
     }
