@@ -591,7 +591,7 @@ class Dmm_Start
                           <label for="dmm_dd">
                               <?php echo esc_html_e('Spende', 'doneren-met-mollie'); ?>
                           </label>
-                          <select id="dmm_dd" style="width: 100%" onchange="if(this.value!='--'){document.getElementById('dmm_amount').value=this.value;document.getElementById('dmm_amount').style.display = 'none';}else{document.getElementById('dmm_amount').style.display = 'block';}">';
+                          <select id="dmm_dd" style="width: 100%" onchange="if(this.value!='--'){document.getElementById('dmm_amount').value=this.value;document.getElementById('dmm_amount_div').style.display = 'none';}else{document.getElementById('dmm_amount_div').style.display = 'block';}">';
                               <option value="--"><?php echo esc_html__('Enter your own amount', 'doneren-met-mollie'); ?></option>
                               <?php
                                 foreach (explode('/', get_option('dmm_amount')) as $amount) {
@@ -600,7 +600,7 @@ class Dmm_Start
                               ?>
                           </select>
                       </div>
-                      <div class="form-group col-md-5">
+                      <div class="form-group col-md-5" id="dmm_amount_div">
                           <label for="dmm_amount">
                               <?php echo esc_html_e('Amount', 'doneren-met-mollie') . ' ' . (get_option('dmm_currency_switch') != '1' ? dmm_get_currency_symbol(get_option('dmm_currency')) : '') . '<span style="color:red;">*</span><br>'; ?>
                           </label>
